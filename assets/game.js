@@ -11,7 +11,7 @@ const Game = {
   init() {
     const instance = this;
 
-    instance.display = new ROT.Display({ width: 80, height: 20 });
+    instance.display = new ROT.Display({ width: this.screenWidth, height: this.screenHeight });
 
     const bindEventToScreen = (event) => {
       window.addEventListener(event, (e) => {
@@ -28,6 +28,14 @@ const Game = {
 
   getDisplay() {
     return this.display;
+  },
+
+  getScreenWidth() {
+    return this.screenWidth;
+  },
+
+  getScreenHeight() {
+    return this.screenHeight;
   },
 
   switchScreen(screen) {
