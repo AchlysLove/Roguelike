@@ -4,6 +4,7 @@
   "rules":{
     "linebreak-style": 0,
     "arrow-body-style": ["error", "always"],
-    "no-trailing-spaces": 0
+    "no-trailing-spaces": 0,
+    "no-unused-vars": 0
   }
 }
