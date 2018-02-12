@@ -6,7 +6,7 @@ Game.Map = function(tiles) {
   this.tiles = tiles;
 
   this.width = tiles.length;
-  this.height = tile[0].length;
+  this.height = tiles[0].length;
 
   this.getWidth = function() {
     return this.width;
