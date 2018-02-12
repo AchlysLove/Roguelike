@@ -5,13 +5,15 @@
 const Game = {
   display: null,
   currentScreen: null,
+  screenWidth: 80,
+  screenHeight: 24,
 
   init() {
     const instance = this;
 
     instance.display = new ROT.Display({ width: 80, height: 20 });
 
-    const bindEventToScreen = function (event) {
+    const bindEventToScreen = (event) => {
       window.addEventListener(event, (e) => {
         if (instance.currentScreen !== null) {
           instance.currentScreen.handleInput(event, e);

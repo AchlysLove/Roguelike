@@ -2,25 +2,25 @@
  * Created by Shihao Shen on 2018/2/8
  */
 
-Game.Map = function(tiles) {
+Game.Map = function Map(tiles) {
   this.tiles = tiles;
 
   this.width = tiles.length;
   this.height = tiles[0].length;
 
-  this.getWidth = function() {
+  this.getWidth = () => {
     return this.width;
   };
 
-  this.getHeight = function() {
+  this.getHeight = () => {
     return this.height;
   };
 
-  this.getTile = function(x, y) {
+  this.getTile = (x, y) => {
     if (x < 0 || x > this.width || y < 0 || y > this.height) {
       return Game.Tile.nullTile;
-    } else {
-      return this.tiles[x][y] || Game.Tile.nullTile;
     }
+
+    return this.tiles[x][y] || Game.Tile.nullTile;
   };
 };
