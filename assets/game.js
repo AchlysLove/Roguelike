@@ -2,28 +2,16 @@
  * Created by Shihao Shen on 2018/2/6
  */
 
-window.onload = function() {
-  // Check if rot.js can work on this browser
-  if (!ROT.isSupported()) {
-    alert('The rot.js library isn\'t supported by your browser.');
-  } else {
-    Game.init();
-
-    document.body.appendChild(Game.getDisplay().getContainer());
-
-    Game.switchScreen(Game.Screen.startScreen);
-  }
-};
-
-let Game = {
+const Game = {
   display: null,
   currentScreen: null,
 
   init() {
-    this.display = new ROT.Display({width: 80, height: 20});
+    const instance = this;
 
-    let instance = this;
-    let bindEventToScreen = function(event) {
+    instance.display = new ROT.Display({ width: 80, height: 20 });
+
+    const bindEventToScreen = function (event) {
       window.addEventListener(event, (e) => {
         if (instance.currentScreen !== null) {
           instance.currentScreen.handleInput(event, e);
@@ -55,5 +43,16 @@ let Game = {
   },
 };
 
+window.onload = () => {
+  // Check if rot.js can work on this browser
+  if (!ROT.isSupported()) {
+    alert('The rot.js library isn\'t supported by your browser.');
+  } else {
+    Game.init();
 
+    document.body.appendChild(Game.getDisplay().getContainer());
+
+    Game.switchScreen(Game.Screen.startScreen);
+  }
+};
 
