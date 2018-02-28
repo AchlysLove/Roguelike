@@ -5,27 +5,39 @@
 const Game = {
   display: null,
   currentScreen: null,
+  screenWidth: 80,
+  screenHeight: 24,
 
   init() {
     const instance = this;
 
-    this.display = new ROT.Display({ width: 80, height: 24 });
+    this.display = new ROT.Display({ width: this.screenWidth, height: this.screenHeight });
 
     const bindEventToScreen = (event) => {
       window.addEventListener(event, (e) => {
         if (instance.currentScreen !== null) {
           instance.currentScreen.handleInput(event, e);
+          instance.display.clear();
+          instance.currentScreen.render(instance.display);
         }
       });
     };
 
     bindEventToScreen('keydown');
-    bindEventToScreen('keyup');
-    bindEventToScreen('keypress');
+    // bindEventToScreen('keyup');
+    // bindEventToScreen('keypress');
   },
 
   getDisplay() {
     return this.display;
+  },
+
+  getScreenWidth() {
+    return this.screenWidth;
+  },
+
+  getScreenHeight() {
+    return this.screenHeight;
   },
 
   switchScreen(screen) {
