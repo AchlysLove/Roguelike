@@ -2,7 +2,7 @@
  * Created by Shihao Shen on 2018/2/27
  */
 
-Game.Glyph = (chr, foreground, background) => {
+Game.Glyph = function Glyph(chr, foreground, background) {
   this.chr = chr;
   this.foreground = foreground;
   this.background = background;

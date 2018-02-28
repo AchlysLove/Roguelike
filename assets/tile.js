@@ -2,7 +2,7 @@
  * Created by Shihao Shen on 2018/2/27
  */
 
-Game.Tile = (glyph) => {
+Game.Tile = function Tile(glyph) {
   this.glyph = glyph;
 
   this.getGlyph = () => {
@@ -10,6 +10,6 @@ Game.Tile = (glyph) => {
   };
 };
 
-Game.Tile.nullTile = new Game.Tile(new Game.Glyph());
+Game.Tile.nullTile = new Game.Tile(new Game.Glyph('+'));
 Game.Tile.floorTile = new Game.Tile(new Game.Glyph('.'));
 Game.Tile.wallTile = new Game.Tile(new Game.Glyph('#', 'goldenrod'));

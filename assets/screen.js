@@ -46,8 +46,36 @@ Game.Screen.startScreen = {
 };
 
 Game.Screen.playScreen = {
+  map: null,
+
   enter() {
     console.log('enter play screen');
+
+    const map = [];
+    for (let x = 0; x < 80; x += 1) {
+      map.push([]);
+      for (let y = 0; y < 24; y += 1) {
+        map[x].push(Game.Tile.nullTile);
+      }
+    }
+
+    const generator = new ROT.Map.Cellular(80, 24);
+    generator.randomize(0.5);
+
+    const totalIterations = 3;
+    for (let i = 0; i < totalIterations - 1; i += 1) {
+      generator.create();
+    }
+
+    generator.create((x, y, v) => {
+      if (v === 1) {
+        map[x][y] = Game.Tile.floorTile;
+      } else {
+        map[x][y] = Game.Tile.wallTile;
+      }
+    });
+
+    this.map = new Game.Map(map);
   },
 
   exit() {
@@ -55,8 +83,12 @@ Game.Screen.playScreen = {
   },
 
   render(display) {
-    display.drawText(3, 5, '%c{red}%b{white}This game is so much fun!');
-    display.drawText(4, 6, 'Press [Enter] to win, or [Esc] to lose!');
+    for (let x = 0; x < this.map.getWidth(); x += 1) {
+      for (let y = 0; y < this.map.getHeight(); y += 1) {
+        const glyph = this.map.getTile(x, y).getGlyph();
+        display.draw(x, y, glyph.getChr(), glyph.getForeground(), glyph.getBackground());
+      }
+    }
   },
 
   handleInput(inputType, inputData) {
