@@ -12,3 +12,7 @@ http://www.codingcookies.com/2013/04/05/building-a-roguelike-in-javascript-part-
 2018/2/28
 Part 3b completed
 http://www.codingcookies.com/2013/04/07/building-a-roguelike-in-javascript-part-3b/
+
+2018/3/13
+Part 4 Started
+http://www.codingcookies.com/2013/04/20/building-a-roguelike-in-javascript-part-4/

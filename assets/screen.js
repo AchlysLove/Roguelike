@@ -47,8 +47,7 @@ Game.Screen.startScreen = {
 
 Game.Screen.playScreen = {
   map: null,
-  centerX: 0,
-  centerY: 0,
+  player: null,
 
   enter() {
     console.log('enter play screen');
@@ -81,6 +80,11 @@ Game.Screen.playScreen = {
     });
 
     this.map = new Game.Map(map);
+    this.player = new Game.Entity(Game.PlayerTemplate);
+
+    const position = this.map.getRandomFloorPosition();
+    this.player.setX(position.x);
+    this.player.setY(position.y);
   },
 
   exit() {
@@ -91,15 +95,15 @@ Game.Screen.playScreen = {
     const screenWidth = Game.getScreenWidth();
     const screenHeight = Game.getScreenHeight();
 
-    let topLeftX = Math.max(0, this.centerX - (screenWidth / 2));
+    let topLeftX = Math.max(0, this.player.getX() - (screenWidth / 2));
     topLeftX = Math.min(topLeftX, this.map.getWidth() - screenWidth);
 
-    let topLeftY = Math.max(0, this.centerY - (screenHeight / 2));
+    let topLeftY = Math.max(0, this.player.getY() - (screenHeight / 2));
     topLeftY = Math.min(topLeftY, this.map.getHeight() - screenHeight);
 
     for (let x = topLeftX; x < topLeftX + screenWidth; x += 1) {
       for (let y = topLeftY; y < topLeftY + screenHeight; y += 1) {
-        const glyph = this.map.getTile(x, y).getGlyph();
+        const glyph = this.map.getTile(x, y);
         display.draw(
           x - topLeftX,
           y - topLeftY, glyph.getChr(),
@@ -109,18 +113,16 @@ Game.Screen.playScreen = {
       }
     }
 
-    display.draw(this.centerX - topLeftX, this.centerY - topLeftY, '@', 'white', 'black');
+    display.draw(this.player.getX() - topLeftX,
+      this.player.getY() - topLeftY,
+      this.player.getChr(),
+      this.player.getForeground(),
+      this.player.getBackground(),
+    );
   },
 
   handleInput(inputType, inputData) {
     if (inputType === 'keydown') {
-      // const inputData = inputData;
-      // if (id.keyCode === ROT.VK_RETURN) {
-      //   Game.switchScreen(Game.Screen.winScreen);
-      // } else if (id.keyCode === ROT.VK_ESCAPE) {
-      //   Game.switchScreen(Game.Screen.loseScreen);
-      // }
-
       if (inputData.keyCode === ROT.VK_UP) {
         this.move(0, -1);
       } else if (inputData.keyCode === ROT.VK_DOWN) {
@@ -134,8 +136,10 @@ Game.Screen.playScreen = {
   },
 
   move(dX, dY) {
-    this.centerX = Math.max(0, Math.min(this.map.getWidth() - 1, this.centerX + dX));
-    this.centerY = Math.max(0, Math.min(this.map.getHeight() - 1, this.centerY + dY));
+    const newX = this.player.getX() + dX;
+    const newY = this.player.getY() + dY;
+
+    this.player.tryMove(newX, newY, this.map);
   },
 };
 

@@ -22,4 +22,22 @@ Game.Map = function Map(tiles) {
 
     return this.tiles[x][y];
   };
+
+  this.dig = (x, y) => {
+    if (this.getTile(x, y).isDiggable) {
+      this.tiles[x][y] = Game.Tile.floorTile;
+    }
+  };
+
+  this.getRandomFloorPosition = () => {
+    let x = 0;
+    let y = 0;
+
+    do {
+      x = Math.floor(Math.random() * this.width);
+      y = Math.floor(Math.random() * this.height);
+    } while (this.getTile(x, y) !== Game.Tile.floorTile);
+
+    return { x, y };
+  };
 };
