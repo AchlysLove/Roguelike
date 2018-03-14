@@ -3,16 +3,18 @@
  */
 
 Game.Tile = function Tile(properties) {
+  const LocalProperties = properties || {};
+
   Game.Glyph.call(this, properties);
 
-  this.isWalkable = properties.isWalkable;
-  this.isDiggable = properties.isDiggable;
+  this.isWalkable = LocalProperties.isWalkable || false;
+  this.isDiggable = LocalProperties.isDiggable || false;
 
-  this.isWalkable = () => {
+  this.getIsWalkable = () => {
     return this.isWalkable;
   };
 
-  this.isDiggable = () => {
+  this.getIsDiggable = () => {
     return this.isDiggable;
   };
 };
@@ -29,3 +31,5 @@ Game.Tile.wallTile = new Game.Tile({
   foreground: 'goldenrod',
   isDiggable: true,
 });
+
+console.log(Game.Tile.floorTile);

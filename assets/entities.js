@@ -8,11 +8,11 @@ Game.Mixins.Moveable = {
   name: 'Moveable',
   tryMove(x, y, map) {
     const tile = map.getTile(x, y);
-    if (tile.isWalkable()) {
+    if (tile.getIsWalkable()) {
       this.x = x;
       this.y = y;
       return true;
-    } else if (tile.isDiggable()) {
+    } else if (tile.getIsDiggable()) {
       map.dig(x, y);
       return true;
     }

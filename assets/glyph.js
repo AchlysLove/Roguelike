@@ -3,9 +3,11 @@
  */
 
 Game.Glyph = function Glyph(properties) {
-  this.chr = properties.character || ' ';
-  this.foreground = properties.foreground || 'white';
-  this.background = properties.background || 'black';
+  const localProperties = properties || {};
+
+  this.chr = localProperties.character || ' ';
+  this.foreground = localProperties.foreground || 'white';
+  this.background = localProperties.background || 'black';
 
   this.getChr = () => {
     return this.chr;
